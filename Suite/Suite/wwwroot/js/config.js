@@ -22,7 +22,7 @@
 
   const initialConfig = {
     phoenixIsNavbarVerticalCollapsed: false,
-    phoenixTheme: 'light',
+    phoenixTheme: 'dark',
     phoenixNavbarTopStyle: 'default',
     phoenixNavbarVerticalStyle: 'default',
     phoenixNavbarPosition: 'vertical',
