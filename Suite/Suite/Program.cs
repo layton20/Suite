@@ -1,7 +1,11 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Suite.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<SuiteContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("SuiteContext") ?? throw new InvalidOperationException("Connection string 'SuiteContext' not found.")));
 
 var app = builder.Build();
 
