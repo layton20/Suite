@@ -1,4 +1,6 @@
 ﻿@page
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @model Suite.Pages.Tags.IndexModel
 
 @{
@@ -9,7 +11,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="Create">Create New @Configuration["Suite:Settings:DefaultThemeColour"]</a>
 </p>
 <table class="table">
     <thead>
