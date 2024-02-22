@@ -1,0 +1,55 @@
+﻿@using Suite.Models.Navigation
+@using Suite.Manager
+@using Suite.Helper
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+<nav class="navbar navbar-vertical navbar-expand-lg">
+    <script>
+        var navbarStyle = window.config.config.phoenixNavbarStyle;
+        if (navbarStyle && navbarStyle !== 'transparent') {
+            document.querySelector('body').classList.add(`navbar-${navbarStyle}`);
+        }
+    </script>
+    <div class="collapse navbar-collapse" id="navbarVerticalCollapse">
+        <!-- scrollbar removed-->
+        <div class="navbar-vertical-content">
+            <ul class="navbar-nav flex-column" id="navbarVerticalNav">
+                <li class="nav-item">
+                    <!-- parent pages-->
+                    @foreach (NavigationSection _Section in NavigationMenuManager.NavigationSections)
+                    {
+                        @if (!string.IsNullOrWhiteSpace(_Section.Name))
+                        {
+                            <p class="navbar-vertical-label">@_Section.Name</p>
+                            <hr class="navbar-vertical-line" />
+                        }
+                        @if (_Section.Items.HasData())
+                        {
+                            foreach (NavigationItem _NavItem in _Section.Items)
+                            {
+                                <partial name="_NavigationItem" model="_NavItem" />
+                            }
+                        }
+                    }
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="navbar-vertical-footer">
+        <button class="btn navbar-vertical-toggle border-0 fw-semibold w-100 white-space-nowrap d-flex align-items-center"><span class="uil uil-left-arrow-to-left fs-8"></span><span class="uil uil-arrow-from-right fs-8"></span><span class="navbar-vertical-footer-text ms-2">Collapsed View</span></button>
+    </div>
+</nav>
+<nav class="navbar navbar-top fixed-top navbar-expand" id="navbarDefault">
+    <div class="collapse navbar-collapse justify-content-between">
+        <div class="navbar-logo">
+            <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
+            <a class="navbar-brand me-1 me-sm-3" href="../index.html">
+                <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center">
+                        <p class="logo-text ms-2 d-none d-sm-block">Suite</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</nav>

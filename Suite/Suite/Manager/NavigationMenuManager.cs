@@ -4,12 +4,6 @@ namespace Suite.Manager
 {
     public static class NavigationMenuManager
     {
-        public static List<NavigationSection> NavigationSections = new List<NavigationSection>()
-        {
-            new NavigationSection { Items = HomeNavigationItems ?? [] },
-            new NavigationSection { Name = "Integrations", Items = IntegrationNavigationItems ?? [] }
-        };
-
         private static List<NavigationItem> HomeNavigationItems = new List<NavigationItem>()
         {
             new NavigationItem("Home", GenerateManageItems()),
@@ -17,9 +11,15 @@ namespace Suite.Manager
 
         private static List<NavigationItem> IntegrationNavigationItems =
         [
-            new NavigationItem("Manage", GenerateManageItems()),
-            new NavigationItem("PokeAPI", "https://www.google.com"),
+            new NavigationItem("Manage", GenerateManageItems()) { IconName = "feather" },
+            new NavigationItem("PokeAPI", "https://www.google.com") { IconName = "feather" },
         ];
+
+        public static List<NavigationSection> NavigationSections = new List<NavigationSection>()
+        {
+            new NavigationSection { Items = HomeNavigationItems },
+            new NavigationSection { Name = "Integrations", Items = IntegrationNavigationItems }
+        };
 
         private static List<NavigationItem> GenerateManageItems()
         {

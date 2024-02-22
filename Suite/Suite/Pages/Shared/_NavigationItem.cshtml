@@ -1,0 +1,55 @@
+﻿@using Suite.Helper
+@using Suite.Models.Navigation
+@model Suite.Models.Navigation.NavigationItem
+
+<div class="nav-item-wrapper">
+    <a class="nav-link dropdown-indicator label-1" href="#nv-@Model.Name" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="nv-@Model.Name">
+        <div class="d-flex align-items-center">
+            <div class="dropdown-indicator-icon">
+                @if (Model.IsExpander)
+                {
+                    <span class="fas fa-caret-right"></span>
+                }
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.IconName))
+            {
+                <span class="nav-link-icon">
+                    <span data-feather="@Model.IconName"></span>
+                </span>
+            }
+            <span class="nav-link-text">
+                @Model.Name
+            </span>
+        </div>
+    </a>
+
+    @if (Model.Children.HasData())
+    {
+        <div class="parent-wrapper label-1">
+            <ul class="nav collapse parent" data-bs-parent="#navbarVerticalCollapse" id="nv-@Model.Name">
+                <li class="collapsed-nav-item-title d-none">@Model.Name</li>
+                @foreach (NavigationItem _NavItem in Model.Children)
+                {
+                    @if (!_NavItem.IsExpander)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@_NavItem.URL" data-bs-toggle="" aria-expanded="false">
+                                <div class="d-flex align-items-center">
+                                    <span class="nav-link-text">@_NavItem.Name</span>
+                                    @if (_NavItem.ShowNewBadge)
+                                    {
+                                        <span class="badge ms-2 badge badge-phoenix badge-phoenix-warning">New</span>
+                                    }
+                                </div>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <partial name="_NavigationItem" model="_NavItem"/>
+                    }
+                }
+            </ul>
+        </div>   
+    }
+</div>

@@ -14,7 +14,7 @@
             URL = url;
         }
 
-        public bool IsExpander => !string.IsNullOrWhiteSpace(URL);
+        public bool IsExpander => string.IsNullOrWhiteSpace(URL);
 
         public List<NavigationItem> Children { get; set; } = [];
         public string IconName { get; set; } = string.Empty;
