@@ -11,7 +11,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="~/favicon/favicon-16x16.png">
     <link rel="manifest" href="~/favicon/site.webmanifest">
 
-    <partial name="_VendorsCSS" />
+    <partial name="Imports/_VendorsCSS" />
 
     <script src="~/js/config.js"></script>
 </head>
@@ -20,15 +20,13 @@
     <partial name="_Navigation"/>
     <div class="content">
         <div class="d-flex content-min-h">
-            <div class="py-9">
-                @RenderBody()
-            </div>
+            @RenderBody()
         </div>
 
         <partial name="_Footer"/>
     </div>
 </main>
-    <partial name="_Vendors" />
+    <partial name="Imports/_VendorsJS" />
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/phoenix.js"></script>
 

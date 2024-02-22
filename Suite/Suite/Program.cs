@@ -1,13 +1,14 @@
 ﻿using Azure.Identity;
 using Microsoft.EntityFrameworkCore;
 using Suite.Data;
+using Suite.Manager;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder _Builder = WebApplication.CreateBuilder(args);
 
-builder.Configuration.AddAzureAppConfiguration(options =>
+_Builder.Configuration.AddAzureAppConfiguration(options =>
 {
     options.Connect(
-        builder.Configuration["ConnectionStrings:AppConfig"])
+        _Builder.Configuration["ConnectionStrings:AppConfig"])
             .ConfigureKeyVault(kv =>
             {
                 kv.SetCredential(new DefaultAzureCredential());
@@ -15,27 +16,31 @@ builder.Configuration.AddAzureAppConfiguration(options =>
 });
 
 // Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddDbContext<SuiteContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SuiteContext") ?? throw new InvalidOperationException("Connection string 'SuiteContext' not found.")));
+_Builder.Services.AddRazorPages();
 
-var app = builder.Build();
+// Add managers
+_Builder.Services.AddScoped<ITagManager, TagManager>();
+
+_Builder.Services.AddDbContext<SuiteContext>(options =>
+    options.UseSqlServer(_Builder.Configuration.GetConnectionString("SuiteContext") ?? throw new InvalidOperationException("Connection string 'SuiteContext' not found.")));
+
+WebApplication _App = _Builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (!_App.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+    _App.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    _App.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+_App.UseHttpsRedirection();
+_App.UseStaticFiles();
 
-app.UseRouting();
+_App.UseRouting();
 
-app.UseAuthorization();
+_App.UseAuthorization();
 
-app.MapRazorPages();
+_App.MapRazorPages();
 
-app.Run();
+_App.Run();

@@ -1,0 +1,32 @@
+﻿@page "{tagUid?}"
+@model Suite.Pages.Tags.AddEditModel
+
+@{
+    ViewData["Title"] = Model.PageTitle;
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    <div class="row flex-between-end mb-5">
+        <div class="col-auto">
+            <h2 class="mb-2">@Model.PageTitle</h2>
+            <h5 class="text-body-tertiary fw-semibold">Tags can be applied to anything such as products.</h5>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    <div class="row g-5">
+        <div class="col-12 col-xl-8">
+            <h4 class="mb-3">Tag Name</h4>
+            <input asp-for="Name" class="form-control mb-5" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="button">Discard</button>
+        <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Save</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

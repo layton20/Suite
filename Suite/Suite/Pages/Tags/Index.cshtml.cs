@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Suite.Data;
+using Suite.Manager;
 using Suite.Models;
 
 namespace Suite.Pages.Tags
 {
     public class IndexModel : PageModel
     {
-        private readonly SuiteContext __Context;
+        private readonly ITagManager __TagManager;
+        public static string URL = "/index";
+        public static string TITLE = "Tags";
 
-        public IndexModel(SuiteContext context) => __Context = context;
+        public IndexModel(ITagManager tagManager) => __TagManager = tagManager;
 
-        public IList<Tag> Tag { get;set; } = default!;
+        public List<TagModel> Tags { get;set; }
 
-        public async Task OnGetAsync() => Tag = await __Context.Tag.ToListAsync();
+        public async Task OnGetAsync() => Tags = await __TagManager.GetTags();
     }
 }
