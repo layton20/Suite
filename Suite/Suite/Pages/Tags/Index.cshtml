@@ -43,7 +43,11 @@
                                     <th>@_Tag.Name</th>
                                     <th>@_Tag.CreatedTimestamp</th>
                                     <th>@_Tag.AmendedTimestamp</th>
-                                    <th>@_Tag.AmendedTimestamp</th>
+                                    <th>
+                                        <a asp-page="./Edit" asp-route-id="@_Tag.Uid">Edit</a> |
+                                        <a asp-page="./Details" asp-route-id="@_Tag.Uid">Details</a> |
+                                        <a asp-page="./Delete" asp-route-id="@_Tag.Uid">Delete</a>
+                                    </th>
                                 </tr>
                             }
                         }
@@ -54,50 +58,6 @@
     </div>
 </div>
 
-<h1>Index</h1>
-
 <p>
     <a asp-page="AddEdit">Create New @Configuration["Suite:Settings:DefaultThemeColour"]</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tags[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tags[0].Uid)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tags[0].CreatedTimestamp)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Tags[0].AmendedTimestamp)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Tags) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uid)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedTimestamp)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AmendedTimestamp)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
